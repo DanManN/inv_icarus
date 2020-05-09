@@ -20,19 +20,6 @@ public class AgentManager : MonoBehaviour
     
     public static AgentManager instance;
 
-
-    // Part 2
-    public bool pursue_evade;
-    public bool spiral;
-    public bool leader_following;
-    public bool crowd_following;
-    public Material pursuers;
-    public Material leader_mat;
-    public Material normal_mat;
-
-    public int n_crowd = 0;
-    public Vector3 crowd_center;
-
     #region Unity Functions
 
     void Awake()
@@ -146,11 +133,11 @@ public class AgentManager : MonoBehaviour
 
     public void SetAgentDestinations(Vector3 destination)
     {
-        NavMeshHit hit;
-        NavMesh.SamplePosition(destination, out hit, 10, NavMesh.AllAreas);
+        // NavMeshHit hit;
+        // NavMesh.SamplePosition(destination, out hit, 10, NavMesh.AllAreas);
         foreach (var agent in agents)
         {
-            agent.ComputePath(hit.position);
+            agent.ComputePath(destination);
         }
     }
 

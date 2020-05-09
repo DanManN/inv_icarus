@@ -43,7 +43,7 @@ public class Agent : MonoBehaviour
         {
             path.RemoveAt(0);
 
-            if (path.Count == 0 && !AgentManager.instance.leader_following && !AgentManager.instance.spiral && !AgentManager.instance.pursue_evade)
+            if (path.Count == 0 )
             {
                 gameObject.SetActive(false);
                 AgentManager.RemoveAgent(gameObject);
@@ -100,29 +100,10 @@ public class Agent : MonoBehaviour
     private Vector3 ComputeForce()
     {
         Vector3 force;
-        if (AgentManager.instance.crowd_following)
-        {
-            force = CalculateCrowdForce();
-        }
-        else if (AgentManager.instance.leader_following)
-        {
-            force = CalculateLeaderFollowing();
-        }
-        else if (AgentManager.instance.pursue_evade)
-        {
-            force = CalculatePursueEvade();
-            force += CalculateAgentForce() + CalculateWallForce();
-        }
-        else if (AgentManager.instance.spiral)
-        {
-            force = CalculateSpiralForce();
-            force += CalculateAgentForce() + CalculateWallForce();
-        }
-        else
-        {
-            force = CalculateGoalForce();
-            force += CalculateAgentForce() + CalculateWallForce();
-        }
+
+        force = CalculateGoalForce();
+        force += CalculateAgentForce() + CalculateWallForce();
+
 
         force += Damping(0.1f);
 
@@ -187,180 +168,6 @@ public class Agent : MonoBehaviour
             taForce += (Parameters.WALL_A * Mathf.Exp((ri - diW) / Parameters.WALL_B) + Parameters.WALL_k * g_rd) * niW - Parameters.WALL_Kappa * g_rd * vtt;
         }
         return taForce;
-    }
-
-    private Vector3 CalculatePursueEvade()
-    {
-        Vector3 agentForce = Vector3.zero;
-
-        //AgentManager.instance.destination = Vector3.forward * 100;
-
-        GetComponent<SphereCollider>().radius = 20;
-
-        bool isEvader = int.Parse(name.Split(' ')[1]) < AgentManager.instance.agentCount / 2;
-
-        Vector3 located = transform.position;
-
-        if (isEvader)
-        {
-            foreach (var n in perceivedNeighbors)
-            {
-                var neighbor = AgentManager.agentsObjs[n];
-                var neighLocated = neighbor.transform.position;
-                var dist = (located - neighLocated);
-
-                var multiplier = Mathf.Min(2 / dist.magnitude, 5);
-
-                var dir = multiplier * dist.normalized;
-
-                var overlap = (radius + neighbor.radius) - Vector3.Distance(located, neighLocated);
-
-                bool otherIsEvader = int.Parse(n.name.Split(' ')[1]) < AgentManager.instance.agentCount / 2;
-
-                Vector3 tan = Vector3.Cross(Vector3.up, dir) * 0.3f;
-                agentForce += tan;
-
-                if (otherIsEvader)
-                {
-                    agentForce += 0.3f * Mathf.Exp(overlap) * dir;
-                }
-                else agentForce += dir * 0.3f;
-            }
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material = AgentManager.instance.pursuers;
-
-            foreach (var n in perceivedNeighbors)
-            {
-                var neighbor = AgentManager.agentsObjs[n];
-                var neighLocated = neighbor.transform.position;
-                var dist = (located - neighLocated);
-                var multiplier = Mathf.Min(2 / dist.magnitude, 5);
-                var dir = multiplier * dist.normalized;
-
-                var overlap = (radius + neighbor.radius) - Vector3.Distance(located, neighLocated);
-                bool otherIsEvader = int.Parse(n.name.Split(' ')[1]) < AgentManager.instance.agentCount / 2;
-
-                if (otherIsEvader)
-                {
-                    agentForce -= dir * 0.3f;
-                }
-                else agentForce += (0.3f * Mathf.Exp(overlap) * dir);
-            }
-        }
-
-        return agentForce.normalized * Parameters.prefSpeed;
-    }
-
-
-    private Vector3 CalculateLeaderFollowing()
-    {
-        foreach (var neighbor in perceivedNeighbors)
-        {
-            Debug.DrawLine(transform.position, neighbor.transform.position, Color.yellow);
-        }
-        Debug.Log(perceivedNeighbors.Count);
-        Vector3 force = Vector3.zero;
-
-        int current_id = int.Parse(name.Split(' ')[1]);
-
-        if (current_id == 0)
-        {
-            // Require Fix: arouse per 5s?
-            // Vector3 dest = new Vector3(Random.Range(-15.0f, 15.0f), 0, Random.Range(-15.0f, 15.0f));
-
-            GetComponent<MeshRenderer>().material = AgentManager.instance.leader_mat;
-            force = CalculateGoalForce() + CalculateWallForce();
-        }
-        else
-        {
-            var Leader = GameObject.Find("Agent 0");
-            var goal = Leader.transform.position;
-            ComputePath(goal);
-            force = CalculateGoalForce() + CalculateAgentForce() + CalculateWallForce();
-
-        }
-
-        return force;
-    }
-
-    private Vector3 CalculatePanicGoalForce()
-    {
-        Vector3 goal = path.FirstOrDefault();
-        var temp = goal - transform.position;
-        var ei = (goal - transform.position).normalized;
-        var eji =( AgentManager.instance.crowd_center - transform.position).normalized;
-        var e0i = (1-Parameters.P)*ei + Parameters.P * eji;
-        return (2 * Parameters.prefSpeed * e0i.normalized - rb.velocity) * (mass / Parameters.T);
-    }
-
-    private Vector3 CalculateCrowdForce()
-    {
-
-        var n_crowd = AgentManager.instance.n_crowd;
-        Vector3 crowd_center = Vector3.zero;
-        
-        if (perceivedNeighbors.Count >= n_crowd)
-        {
-            isCrowded = true;
-        }
-
-        if (perceivedNeighbors.Count >= n_crowd)
-        {
-            AgentManager.instance.n_crowd = perceivedNeighbors.Count;
-            n_crowd = AgentManager.instance.n_crowd;
-
-            foreach (var neighbor in perceivedNeighbors)
-            {
-                crowd_center += neighbor.transform.position;
-            }
-            crowd_center = crowd_center / n_crowd;
-            AgentManager.instance.crowd_center = crowd_center;
-        }
-
-        foreach (var neighbor in perceivedNeighbors)
-        {
-            Debug.DrawLine(transform.position, neighbor.transform.position, Color.yellow);
-        }
-        Debug.Log(perceivedNeighbors.Count);
-
-        // bool isCrowded = false;
-
-        // int current_id = int.Parse(name.Split(' ')[1]);
-
-        // ComputePath(crowd_center);
-
-        if (isCrowded)
-        {
-            // Require Fix: arouse per 5s?
-            // Vector3 dest = new Vector3(Random.Range(-15.0f, 15.0f), 0, Random.Range(-15.0f, 15.0f));
-            GetComponent<MeshRenderer>().material = AgentManager.instance.leader_mat;
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material = AgentManager.instance.normal_mat;
-        }
-        Vector3 force = CalculatePanicGoalForce() + CalculateAgentForce() + CalculateWallForce();
-
-        return force;
-    }
-
-    private Vector3 CalculateSpiralForce()
-    {
-        //AgentManager.instance.destination = Vector3.forward * 100;
-
-        Vector3 agentForce = Vector3.zero;
-
-        Vector3 centerDir = Vector3.zero - transform.position;
-
-        if (centerDir.magnitude > 0)
-        {
-            agentForce += Vector3.Cross(Vector3.up, centerDir).normalized * 0.05f;
-            agentForce += centerDir.normalized * 0.005f;
-        }
-
-        return agentForce.normalized * Parameters.prefSpeed;
     }
 
     public void ApplyForce()

@@ -22,6 +22,7 @@
     - [ ] **Random Vec3 in a scale?**
     - [ ] Generate random cubes in the scene and hit-raycast?
   - [ ] **Navigation? Social Forces** here? Avoid collision (planes and obstacles)
+    - [ ] Still need NavMesh? https://answers.unity.com/questions/1471149/how-to-use-navmeshagent-for-space-ship-in-3d.html
   - [ ] Forces?
     - [ ] gravity? For convenience remove it first?
     - [ ] aerodynamic force?
