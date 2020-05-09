@@ -8,13 +8,21 @@
 
 
 
-## Plans
+## Plan 
+
+1. Put two planes in a scene, migrate social forces codes, use SF to navigate the planes to a **goal position**
+2. Add Obstacles
+3. Add more planes
+
+
+
+## Plans_todo
 
 - [ ] Two planes in a scene, guide to a <u>desired position</u> 
   - [ ] Desired Position
-    - [ ] Random Vec3 in a scale?
+    - [ ] **Random Vec3 in a scale?**
     - [ ] Generate random cubes in the scene and hit-raycast?
-  - [ ] Navigation? Social Forces here? Avoid collision (planes and obstacles)
+  - [ ] **Navigation? Social Forces** here? Avoid collision (planes and obstacles)
   - [ ] Forces?
     - [ ] gravity? For convenience remove it first?
     - [ ] aerodynamic force?
