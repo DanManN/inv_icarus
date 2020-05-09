@@ -10,11 +10,10 @@
 
 ## Plan 
 
-1. Put two planes in a scene, migrate social forces codes, use SF to navigate the planes to a **goal position**
-2. Add Obstacles
-3. Add more planes
-
-
+1. Put one planes in a scene, migrate social forces codes, use SF to navigate the planes to a **goal position**
+2. Add more planes. Do the same thing
+3. Add Obstacles. Do the same thing
+4. Implement other things show up in proposal
 
 ## Plans_todo
 
