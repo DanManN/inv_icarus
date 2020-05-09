@@ -14,9 +14,10 @@
   - [ ] Desired Position
     - [ ] Random Vec3 in a scale?
     - [ ] Generate random cubes in the scene and hit-raycast?
-  - [ ] Navigation?
-  - [ ] Social forces
+  - [ ] Navigation? Social Forces here? Avoid collision (planes and obstacles)
+  - [ ] Forces?
     - [ ] gravity? For convenience remove it first?
+    - [ ] aerodynamic force?
     - [ ] Apply behavior forces only on the direction they are facing
       - [ ] Migrate the "space" behavior to plane engine?
 - [ ] Obstacles in 3D spaces and test
