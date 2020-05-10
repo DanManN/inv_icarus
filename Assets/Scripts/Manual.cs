@@ -69,6 +69,9 @@ public class Manual : MonoBehaviour
 
     void OnCollisionEnter(Collision collisionInfo)
     {
+        Debug.Log("Collide with" + collisionInfo.gameObject.name);
+
+
         float speed = rb.velocity.magnitude;
         float hitSpeed = Vector3.Dot(rb.velocity, collisionInfo.contacts[0].normal);
         print("Speed: " + speed);
