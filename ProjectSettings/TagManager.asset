@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Secondary Camera
   - SpaceTrash
+  - Planet
+  - PlayCol
   layers:
   - Default
   - TransparentFX

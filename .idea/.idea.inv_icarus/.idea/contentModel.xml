@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\ashpi\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\ashpi\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_inv_icarus.-1209562087.00" t="ExcludeRecursive" />
+    <e p="C:\Users\ashpi\OneDrive\Documents\College\Character Animation\Final Project\inv_icarus" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="AHProxy" t="Include">
+          <e p="PlanetShader" t="Include">
+            <e p="DemoScene" t="Include">
+              <e p="Standard Assets" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="ImageEffects" t="Include">
+                    <e p="BloomAndFlaresEditor.cs" t="Include" />
+                    <e p="BloomEditor.cs" t="Include" />
+                    <e p="SunShaftsEditor.cs" t="Include" />
+                  </e>
+                </e>
+                <e p="Effects" t="Include">
+                  <e p="AntiAliasing" t="Include">
+                    <e p="AntiAliasing.cs" t="Include" />
+                    <e p="Editor" t="Include">
+                      <e p="AntiAliasingEditor.cs" t="Include" />
+                      <e p="IAntiAliasingEditor.cs" t="Include" />
+                    </e>
+                    <e p="FXAA" t="Include">
+                      <e p="Editor" t="Include">
+                        <e p="FXAAEditor.cs" t="Include" />
+                      </e>
+                      <e p="FXAA.cs" t="Include" />
+                      <e p="Resources" t="Include">
+                        <e p="FXAA.shader" t="Include" />
+                        <e p="FXAA3.cginc" t="Include" />
+                      </e>
+                    </e>
+                    <e p="IAntiAliasing.cs" t="Include" />
+                    <e p="SMAA" t="Include">
+                      <e p="Editor" t="Include">
+                        <e p="SMAAEditor.cs" t="Include" />
+                      </e>
+                      <e p="Resources" t="Include">
+                        <e p="SMAA.cginc" t="Include" />
+                        <e p="SMAA.shader" t="Include" />
+                      </e>
+                      <e p="SMAA.cs" t="Include" />
+                    </e>
+                  </e>
+                  <e p="Common" t="Include">
+                    <e p="Editor" t="Include">
+                      <e p="EditorGUIHelper.cs" t="Include" />
+                      <e p="FieldFinder.cs" t="Include" />
+                      <e p="MinDrawer.cs" t="Include" />
+                    </e>
+                    <e p="ImageEffectHelper.cs" t="Include" />
+                    <e p="MinAttribute.cs" t="Include" />
+                    <e p="RenderTextureUtility.cs" t="Include" />
+                  </e>
+                  <e p="ImageEffects" t="Include">
+                    <e p="Scripts" t="Include">
+                      <e p="Bloom.cs" t="Include" />
+                      <e p="BloomAndFlares.cs" t="Include" />
+                      <e p="BloomOptimized.cs" t="Include" />
+                      <e p="ImageEffectBase.cs" t="Include" />
+                      <e p="ImageEffects.cs" t="Include" />
+                      <e p="PostEffectsBase.cs" t="Include" />
+                      <e p="PostEffectsHelper.cs" t="Include" />
+                      <e p="Quads.cs" t="Include" />
+                      <e p="ScreenOverlay.cs" t="Include" />
+                      <e p="SunShafts.cs" t="Include" />
+                      <e p="Triangles.cs" t="Include" />
+                    </e>
+                    <e p="Shaders" t="Include">
+                      <e p="_BloomAndFlares" t="Include">
+                        <e p="Blend.shader" t="Include" />
+                        <e p="BlendForBloom.shader" t="Include" />
+                        <e p="BlendOneOne.shader" t="Include" />
+                        <e p="BlurAndFlares.shader" t="Include" />
+                        <e p="BrightPassFilter.shader" t="Include" />
+                        <e p="BrightPassFilter2.shader" t="Include" />
+                        <e p="LensFlareCreate.shader" t="Include" />
+                        <e p="MobileBloom.shader" t="Include" />
+                        <e p="MobileBlur.shader" t="Include" />
+                        <e p="MultiPassHollywoodFlares.shader" t="Include" />
+                        <e p="SeparableBlurPlus.shader" t="Include" />
+                        <e p="VignetteShader.shader" t="Include" />
+                      </e>
+                      <e p="BlendModesOverlay.shader" t="Include" />
+                      <e p="BlurEffectConeTaps.shader" t="Include" />
+                      <e p="Contrast Stretch" t="Include">
+                        <e p="Adaptation.shader" t="Include" />
+                        <e p="Apply.shader" t="Include" />
+                        <e p="Luminance.shader" t="Include" />
+                        <e p="MinMaxReduction.shader" t="Include" />
+                      </e>
+                      <e p="ContrastComposite.shader" t="Include" />
+                      <e p="ConvertDepth.shader" t="Include" />
+                      <e p="PrepareSunShaftsBlur.shader" t="Include" />
+                      <e p="ScreenSpaceRaytrace.cginc" t="Include" />
+                      <e p="ShowAlphaChannel.shader" t="Include" />
+                      <e p="SimpleClear.shader" t="Include" />
+                      <e p="SunShaftsComposite.shader" t="Include" />
+                    </e>
+                  </e>
+                </e>
+                <e p="Utility" t="Include">
+                  <e p="FPSCounter.cs" t="Include" />
+                </e>
+              </e>
+              <e p="Textures" t="Include">
+                <e p="README - Copyright.txt" t="Include" />
+              </e>
+            </e>
+            <e p="Shader" t="Include">
+              <e p="PlanetRingShader.shader" t="Include" />
+              <e p="PlanetShaderHi.shader" t="Include" />
+              <e p="PlanetShaderMobile.shader" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Detonator Explosion Framework" t="Include">
+          <e p="Resources" t="Include">
+            <e p="Detonator" t="Include">
+              <e p="Textures" t="Include">
+                <e p="HeatDistort.shader" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="system" t="Include">
+            <e p="Detonator.cs" t="Include" />
+            <e p="DetonatorBurstEmitter.cs" t="Include" />
+            <e p="DetonatorCloudRing.cs" t="Include" />
+            <e p="DetonatorComponent.cs" t="Include" />
+            <e p="DetonatorFireball.cs" t="Include" />
+            <e p="DetonatorForce.cs" t="Include" />
+            <e p="DetonatorGlow.cs" t="Include" />
+            <e p="DetonatorHeatwave.cs" t="Include" />
+            <e p="DetonatorLight.cs" t="Include" />
+            <e p="DetonatorShockwave.cs" t="Include" />
+            <e p="DetonatorSmoke.cs" t="Include" />
+            <e p="DetonatorSound.cs" t="Include" />
+            <e p="DetonatorSparks.cs" t="Include" />
+            <e p="DetonatorSpray.cs" t="Include" />
+          </e>
+          <e p="TestScene" t="Include">
+            <e p="DetonatorTest.cs" t="Include" />
+            <e p="TouchToMouse.cs" t="Include" />
+          </e>
+        </e>
+        <e p="NavMeshComponents" t="Include">
+          <e p="Editor" t="Include">
+            <e p="NavMeshAssetManager.cs" t="Include" />
+            <e p="NavMeshComponentsEditor.asmdef" t="Include" />
+            <e p="NavMeshComponentsGUIUtility.cs" t="Include" />
+            <e p="NavMeshLinkEditor.cs" t="Include" />
+            <e p="NavMeshModifierEditor.cs" t="Include" />
+            <e p="NavMeshModifierVolumeEditor.cs" t="Include" />
+            <e p="NavMeshSurfaceEditor.cs" t="Include" />
+          </e>
+          <e p="Scripts" t="Include">
+            <e p="NavMeshComponents.asmdef" t="Include" />
+            <e p="NavMeshLink.cs" t="Include" />
+            <e p="NavMeshModifier.cs" t="Include" />
+            <e p="NavMeshModifierVolume.cs" t="Include" />
+            <e p="NavMeshSurface.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Agent.cs" t="Include" />
+          <e p="AgentManager.cs" t="Include" />
+          <e p="Follow.cs" t="Include" />
+          <e p="Manual.cs" t="Include" />
+          <e p="MoveCamera.cs" t="Include" />
+          <e p="ObstacleManager.cs" t="Include" />
+          <e p="Parameters.cs" t="Include" />
+          <e p="RRTAlgo.cs" t="Include" />
+          <e p="SlidingFrictionForceVisualizer.cs" t="Include" />
+          <e p="Util.cs" t="Include" />
+          <e p="WallManager.cs" t="Include" />
+        </e>
+        <e p="StarSparrow" t="Include">
+          <e p="Readme" t="Include">
+            <e p="Readme Files" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="ReadmeStarSparrowEditor.cs" t="Include" />
+                </e>
+                <e p="ReadmeStarSparrow.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="inv_icarus.sln" t="IncludeFlat" />
+      <e p="NavMeshComponents.csproj" t="IncludeRecursive" />
+      <e p="NavMeshComponentsEditor.csproj" t="IncludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="Temp\bin" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
