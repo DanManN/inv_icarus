@@ -50,24 +50,22 @@ Default it is ON. We can show the difference of applying SF and not applying SF 
 - [x] Obstacle
   - [x] Planet: Stable (x,y,z)
   - [x] Space trash: Has random running path
+    - [ ] Random running path? Not yet finished.
 - [ ] SF Mode and Non-SF mode
 
 #### Details and TODO 
-
-- [x] Plane control [Daniel has worked it out]
 - [ ] **[IMPORTANT] SF migration (rb.AddForce if plane in a perceptionRadius of the obstacle or other aircraft)**
-- [ ] Add obstacles and other aircrafts
-  - [ ] Obstacles
-    - [x] Generate random obstacles in 3D space [Need to scale better]
-      - [x] Advanced: Random object in camera view: https://answers.unity.com/questions/752253/spawn-object-at-random-points-within-camera-view.html
-      - [ ] Random choice of different prefab?
-    - [x] Obstacle prefab: space trash [Now using Resource/prefab/Obstacle_mine1 as tmp]
-    - [x] Collider:
-      - [x] **[for SF]** Sphere collider for perceptionRadius detection (Is that a trigger? )
-      - [x] Sphere collider for Hit and Explode (Not trigger)
-  - [ ] ~~Plane~~
-    - [ ] ~~Similar to obstacles?~~
-    - [ ] ~~But have their random running path?~~
+- [ ] Plane collision and explode logic: Currently Daniel designed it as `if speed > threshold & crashed, explode.` Not yet changed.
+- [ ] Add more planets (Stable Obstacle) --> Do we want a random generation? 
+- [ ] **Random path** of Space trash 
+  - [x] Generate random obstacles in 3D space [Need to scale better]
+    - [x] Advanced: Random object in camera view: https://answers.unity.com/questions/752253/spawn-object-at-random-points-within-camera-view.html
+    - [ ] The random logic has not yet well written. 
+    - [ ] Random choice of different prefab?
+  - [x] Obstacle prefab: space trash [Now using Resource/prefab/Obstacle_mine1 as tmp]
+  - [x] Collider:
+    - [x] **[for SF]** Sphere collider for perceptionRadius detection (Is that a trigger? )
+    - [x] Sphere collider for Hit and Explode (Not trigger)
 - [x] Scrolling Background 3D? Use SkyBox!
   - [x] Center randomize obstacles about Main camera? 
   - [ ] Remove obstacles if they are out of camera?
