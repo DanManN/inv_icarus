@@ -10,6 +10,7 @@ TagManager:
   - SpaceTrash
   - Planet
   - PlayCol
+  - Goal
   layers:
   - Default
   - TransparentFX

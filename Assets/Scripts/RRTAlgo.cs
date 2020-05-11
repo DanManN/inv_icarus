@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RRTAlgo : MonoBehaviour
 {
     float startX;
     float startY;
+    private float startZ;
 
     public GameObject goal;
 
     float goalX;
     float goalY;
+    private float goalZ;
 
-    GameObject[] obs;
     List<Collider> obCol;
 
     public GameObject floor;
@@ -41,14 +43,15 @@ public class RRTAlgo : MonoBehaviour
         startX = transform.position.x;
         startY = transform.position.y;
 
-        goal = GameObject.FindWithTag("Exit");
-        floor = GameObject.FindWithTag("floor");
+        goal = GameObject.FindWithTag("Goal");
         step = 1.5f;
         maxSteps = 10000;
         speed = 5.0f;
         obCol = new List<Collider>();
 
-        obs = GameObject.FindGameObjectsWithTag("SpaceTrash");
+        var ast = GameObject.FindGameObjectsWithTag("SpaceTrash");
+        var planets = GameObject.FindGameObjectsWithTag("Planets");
+        var obs = planets.Concat(ast);
 
         //offset = new Vector3(0, GetComponent<Collider>().bounds.extents.y, 0);
         offset = new Vector3(0, 0, 0);
@@ -150,10 +153,12 @@ public class RRTAlgo : MonoBehaviour
     TreeNode NextLeaf(bool blocked)
     {
         Vector3 x;
-        MeshFilter m = floor.GetComponent<MeshFilter>();
+        //MeshFilter m = floor.GetComponent<MeshFilter>();
 
-        Vector3 min = m.mesh.bounds.min;
-        Vector3 max = m.mesh.bounds.max;
+        var dist = goal.transform.position - transform.position;
+
+        Vector3 min = goal.transform.position;
+        Vector3 max = goal.transform.position;
         Vector3 nextStep;
 
         bool flag = false;

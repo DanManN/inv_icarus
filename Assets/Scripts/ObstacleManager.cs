@@ -14,11 +14,32 @@ public class ObstacleManager : MonoBehaviour
     private GameObject obstacleParent;
     private static HashSet<GameObject> obstacleObjs = new HashSet<GameObject>();
 
+    private List<Collider> obCol;
+    private Vector3 center;
+
 
     // Start is called before the first frame update
     void Start()
     {
         Random.InitState(0);
+        
+        Vector3 goal = GameObject.Find("Goal").transform.position;
+        GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
+        Vector3 shipPos = ship.transform.position;
+
+        center = (goal + shipPos) * 0.5f;
+        radius = Vector3.Distance(goal, shipPos) * 0.75f;
+
+        var player = GameObject.FindGameObjectsWithTag("PlayCol");
+        var planets = GameObject.FindGameObjectsWithTag("Planet");
+        var obs = player.Concat(planets);
+        obCol = new List<Collider>();
+        
+        foreach (GameObject ob in obs)
+        {
+            obCol.Add(ob.GetComponent<Collider>());
+        }
+        
 
         obstacleParent = GameObject.Find("Obstacles");
         for (int i = 0; i < obstacleNum; i++)
@@ -41,25 +62,9 @@ public class ObstacleManager : MonoBehaviour
         GameObject obstacle = null;
         //Vector3 screenPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0,Screen.width), Random.Range(0,Screen.height), Camera.main.farClipPlane/2));
 
-        Vector3 goal = GameObject.Find("Goal").transform.position;
-        GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
-        Vector3 shipPos = ship.transform.position;
-
-        Vector3 center = (goal + shipPos) * 0.5f;
-
         Vector3 point = (Vector3)Random.insideUnitSphere * radius + center;
         
-        var player = GameObject.FindGameObjectsWithTag("PlayCol");
-        var planets = GameObject.FindGameObjectsWithTag("Planet");
-        var obs = player.Concat(planets);
-        var obCol = new List<Collider>();
-
         bool flag = false;
-
-        foreach (GameObject ob in obs)
-        {
-            obCol.Add(ob.GetComponent<Collider>());
-        }
 
         for (int q = 0; q < 1000; q++)
         {
