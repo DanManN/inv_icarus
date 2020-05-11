@@ -56,6 +56,7 @@ Default it is ON. We can show the difference of applying SF and not applying SF 
 #### Details and TODO 
 - [ ] **[IMPORTANT] SF migration (rb.AddForce if plane in a perceptionRadius of the obstacle or other aircraft)**
 - [ ] Plane collision and explode logic: Currently Daniel designed it as `if speed > threshold & crashed, explode.` Not yet changed.
+- [ ] Explode camera need to be fixed. Currently an error pops out and I have not yet checked that
 - [ ] Add more planets (Stable Obstacle) --> Do we want a random generation? 
 - [ ] **Random path** of Space trash 
   - [x] Generate random obstacles in 3D space [Need to scale better]
