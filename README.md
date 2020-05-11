@@ -44,7 +44,15 @@ If it is not clicked, then the plane will not automatically get avoid of obstacl
 
 Default it is ON. We can show the difference of applying SF and not applying SF here.
 
-#### TODO 
+### Design (checkbox means at least got a prototype, not means fully finished)
+
+- [x] Plane: User control aircraft
+- [x] Obstacle
+  - [x] Planet: Stable (x,y,z)
+  - [x] Space trash: Has random running path
+- [ ] SF Mode and Non-SF mode
+
+#### Details and TODO 
 
 - [x] Plane control [Daniel has worked it out]
 - [ ] **[IMPORTANT] SF migration (rb.AddForce if plane in a perceptionRadius of the obstacle or other aircraft)**
@@ -54,13 +62,12 @@ Default it is ON. We can show the difference of applying SF and not applying SF 
       - [x] Advanced: Random object in camera view: https://answers.unity.com/questions/752253/spawn-object-at-random-points-within-camera-view.html
       - [ ] Random choice of different prefab?
     - [x] Obstacle prefab: space trash [Now using Resource/prefab/Obstacle_mine1 as tmp]
-    - [ ] Collider:
-      - [ ] **[for SF]** Sphere collider for perceptionRadius detection (Is that a trigger? )
+    - [x] Collider:
+      - [x] **[for SF]** Sphere collider for perceptionRadius detection (Is that a trigger? )
       - [x] Sphere collider for Hit and Explode (Not trigger)
-  - [ ] Plane
-    - [ ] Similar to obstacles?
-    - [ ] But have their random running path?
-- [ ] Scrolling Background 3D?
-  - [ ] Ref: https://answers.unity.com/questions/988724/how-can-i-make-an-endless-3d-moving-background.html
-  - [ ] Center randomize obstacles about Main camera? 
-  - [ ] Remove Planes and obstacles if they are out of camera?
+  - [ ] ~~Plane~~
+    - [ ] ~~Similar to obstacles?~~
+    - [ ] ~~But have their random running path?~~
+- [x] Scrolling Background 3D? Use SkyBox!
+  - [x] Center randomize obstacles about Main camera? 
+  - [ ] Remove obstacles if they are out of camera?
