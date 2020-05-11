@@ -631,6 +631,21 @@ CapsuleCollider:
   m_Height: 11.3
   m_Direction: 2
   m_Center: {x: 0, y: -0.15, z: -0.2}
+--- !u!114 &806567306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806567301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b08748d57c61046aec7b192425288b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0
+  maxSteps: 0
+  speed: 0
 --- !u!1 &1005544119
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +690,7 @@ GameObject:
   - component: {fileID: 1241925597}
   m_Layer: 0
   m_Name: Goal
-  m_TagString: Planet
+  m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

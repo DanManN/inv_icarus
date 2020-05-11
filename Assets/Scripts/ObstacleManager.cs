@@ -32,7 +32,11 @@ public class ObstacleManager : MonoBehaviour
 
         var player = GameObject.FindGameObjectsWithTag("PlayCol");
         var planets = GameObject.FindGameObjectsWithTag("Planet");
-        var obs = player.Concat(planets);
+        var obs = new List<GameObject>();
+        obs.AddRange(player);
+        obs.AddRange(planets);
+        obs.Add(GameObject.Find("Goal"));
+        
         obCol = new List<Collider>();
         
         foreach (GameObject ob in obs)

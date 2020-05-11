@@ -5,19 +5,10 @@ using UnityEngine;
 
 public class RRTAlgo : MonoBehaviour
 {
-    float startX;
-    float startY;
-    private float startZ;
-
-    public GameObject goal;
-
-    float goalX;
-    float goalY;
-    private float goalZ;
-
-    List<Collider> obCol;
-
-    public GameObject floor;
+    private GameObject goal = null;
+    private List<Collider> obCol;
+    private Vector3 center;
+    private float radius; 
 
     Tree tree;
 
@@ -29,28 +20,21 @@ public class RRTAlgo : MonoBehaviour
     Stack<TreeNode> points;
     Vector3 curDest;
     public float speed;
-
     Vector3 offset;
-
     bool canMove;
-
-    public int priorityNum;
 
     // Start is called before the first frame update
     void Start()
     {
         canMove = true;
-        startX = transform.position.x;
-        startY = transform.position.y;
-
-        goal = GameObject.FindWithTag("Goal");
-        step = 1.5f;
-        maxSteps = 10000;
+        step = 20f;
+        maxSteps = 100;
         speed = 5.0f;
         obCol = new List<Collider>();
+        goal = GameObject.Find("Goal");
 
         var ast = GameObject.FindGameObjectsWithTag("SpaceTrash");
-        var planets = GameObject.FindGameObjectsWithTag("Planets");
+        var planets = GameObject.FindGameObjectsWithTag("Planet");
         var obs = planets.Concat(ast);
 
         //offset = new Vector3(0, GetComponent<Collider>().bounds.extents.y, 0);
@@ -60,12 +44,19 @@ public class RRTAlgo : MonoBehaviour
         {
             obCol.Add(ob.GetComponent<Collider>());
         }
+        
+        Vector3 goal_pos = GameObject.Find("Goal").transform.position;
+        GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
+        Vector3 shipPos = ship.transform.position;
 
-        FindPath(false);
+        center = (goal_pos + shipPos) * 0.5f;
+        radius = Vector3.Distance(goal_pos, shipPos) * 0.75f;
+
+        FindPath();
         
     }
 
-    void FindPath(bool blocked)
+    void FindPath()
     {
         tree = new Tree(transform.position - offset);
         curSteps = 0;
@@ -73,7 +64,7 @@ public class RRTAlgo : MonoBehaviour
 
         while (curSteps < maxSteps)
         {
-            curLeaf = NextLeaf(blocked);
+            curLeaf = NextLeaf();
             if (goal.GetComponent<Collider>().bounds.Contains(curLeaf.pos))
             {
                 finalNode = curLeaf;
@@ -85,7 +76,7 @@ public class RRTAlgo : MonoBehaviour
         if (curSteps >= maxSteps)
         {
             finalNode = tree.FindClosest(goal.transform.position, tree.root);
-            Debug.DrawLine(curLeaf.pos, finalNode.pos, Color.green, 2.5f);
+            Debug.DrawLine(curLeaf.pos, finalNode.pos, Color.green, 60f);
 
         }
 
@@ -104,6 +95,7 @@ public class RRTAlgo : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         if (canMove)
         {
             float dis = Vector3.Distance(transform.position - offset, curDest);
@@ -131,7 +123,7 @@ public class RRTAlgo : MonoBehaviour
 
                 // Calculate a rotation a step closer to the target and applies rotation to this object
                 transform.rotation = Quaternion.LookRotation(newDirection);
-                */
+                *//*
                 float walk = speed * Time.fixedDeltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, curDest + offset, walk);
                 //print("still in this pos");
@@ -148,61 +140,50 @@ public class RRTAlgo : MonoBehaviour
             float walk = -0.6f * speed * Time.fixedDeltaTime;
             transform.position = Vector3.MoveTowards(transform.position, curDest + offset, walk);
         }
+        
+        */
     }
 
-    TreeNode NextLeaf(bool blocked)
+    TreeNode NextLeaf()
     {
         Vector3 x;
         //MeshFilter m = floor.GetComponent<MeshFilter>();
 
         var dist = goal.transform.position - transform.position;
 
-        Vector3 min = goal.transform.position;
-        Vector3 max = goal.transform.position;
-        Vector3 nextStep;
-
+        Vector3 point = (Vector3)Random.insideUnitSphere * radius + center;
+        
         bool flag = false;
 
         while (true)
         {
-            flag = false;
-            if (blocked && Random.Range(0.0f, 1.0f) < 0.25f)
-                x = goal.transform.position;
-            else
-                x = floor.transform.position - new Vector3(Random.Range(min.x * 5, max.x * 5), 0f/*floor.transform.position.y*/, Random.Range(min.z * 15, max.z * 15));
-
-            TreeNode closest = tree.FindClosest(x, tree.root);
-
-            //if (Vector3.Distance(FindWithTag("Exit").transform, closest.pos) < step)
-            //    nextStep = Vector3.Lerp(closest.pos, x, step / (closest - x).Length());
-
-            // nextStep = Vector3.Lerp(closest.pos, x,  step / (closest.pos - x).Length());
-            nextStep = Vector3.Lerp(closest.pos, x, step / Vector3.Distance(closest.pos, x));
-
+            TreeNode closest = tree.FindClosest(point, tree.root);
+            var nextStep = Vector3.Lerp(closest.pos, point, step / Vector3.Distance(closest.pos, point));
             
-
             foreach (Collider col in obCol)
                 if (col.bounds.Contains(nextStep))
+                {
                     flag = true;
+                    break;
+                }
 
             if (flag)
             {
-                //Debug.DrawLine(closest.pos, nextStep, Color.red, 30f);
-                continue;
+                point = (Vector3)Random.insideUnitSphere * radius + center;
+                Debug.DrawLine(closest.pos, nextStep, Color.red, 60f);
             }
+
 
             else
             {
-                //Debug.DrawLine(closest.pos, nextStep, Color.white, 30f);
+                Debug.DrawLine(closest.pos, nextStep, Color.white, 60f);
                 TreeNode newLeaf = new TreeNode(new Vector3(nextStep.x, 0f, nextStep.z));
                 closest.AddChild(newLeaf);
                 return newLeaf;
             }
         }
-
-        
     }
-
+/*
     void OnTriggerEnter(Collider col)
     {
         Vector3 otherPos = col.gameObject.transform.position;
@@ -227,7 +208,7 @@ public class RRTAlgo : MonoBehaviour
         canMove = true;
         //yield return null;
     }
-
+*/
 }
 
 
