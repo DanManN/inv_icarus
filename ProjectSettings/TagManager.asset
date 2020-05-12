@@ -11,6 +11,7 @@ TagManager:
   - Planet
   - PlayCol
   - Goal
+  - Obstacle
   layers:
   - Default
   - TransparentFX
