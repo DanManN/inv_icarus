@@ -8,6 +8,8 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private Material defaultMaterial;
 
     private Transform _selection;
+
+    private static List<GameObject> selected = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,8 @@ public class SelectionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Deselect
         if (_selection != null)
         {
             var selectionRenderer = _selection.GetComponent<Renderer>();
@@ -31,12 +35,20 @@ public class SelectionManager : MonoBehaviour
                 
             //     // throw;
             // }
-
-            selectionRenderer.material = defaultMaterial;
-            _selection = null;
+            var agentScript = _selection.GetComponent<Agent>();
+            bool isSelected = agentScript.isSelected;
+            if (! isSelected)
+            {
+                selectionRenderer.material = defaultMaterial;
+                // if !isSeleced?
+                _selection = null;
+            }
+            
         }
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
+        // Select
         if (Physics.Raycast(ray, out hit))
         {
             var selection = hit.transform;
@@ -54,6 +66,26 @@ public class SelectionManager : MonoBehaviour
                 //     // throw;
                 // }
                 selectionRenderer.material = highlightMaterial;
+                var agentScript = selection.GetComponent<Agent>();
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (agentScript.isSelected)
+                    {
+                        // selected.Add(selection.GetComponent<GameObject>());
+                        // A bool for isSelected?
+                        agentScript.isSelected = false;
+                    }
+                    else
+                    {
+                        // REMOVE
+                        // selected.Remove(selection.GetComponent<GameObject>());
+                        // A bool for isSelected?
+                        agentScript.isSelected = true;
+                    }
+
+                }
+
             }
             
             _selection = selection;
