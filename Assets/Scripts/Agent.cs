@@ -135,10 +135,10 @@ public class Agent : MonoBehaviour
     {
         //path = new List<Vector3>() { destination };
         // call rrt here
-        //path = FindPath(destination);
-        //path.Add(destination);
-        path = FindPath(goal_pos);
-        path.Add(goal_pos);
+        path = FindPath(destination);
+        path.Add(destination);
+        //path = FindPath(goal_pos);
+        //path.Add(goal_pos);
     }
 
     public Vector3 GetVelocity()
@@ -233,7 +233,7 @@ public class Agent : MonoBehaviour
 
         while (curSteps < maxSteps)
         {
-            curLeaf = NextLeaf();
+            curLeaf = NextLeaf(destination);
             //if (goal.GetComponent<Collider>().bounds.Contains(curLeaf.pos))
             if (Vector3.Distance(destination, curLeaf.pos) < 100)
             {
@@ -245,7 +245,7 @@ public class Agent : MonoBehaviour
 
         if (curSteps >= maxSteps)
         {
-            finalNode = tree.FindClosest(goal_pos, tree.root);
+            finalNode = tree.FindClosest(destination, tree.root);
             Debug.DrawLine(curLeaf.pos, finalNode.pos, Color.green, 60f);
 
         }
@@ -266,14 +266,14 @@ public class Agent : MonoBehaviour
         return positions;
     }
 
-    TreeNode NextLeaf()
+    TreeNode NextLeaf(Vector3 destination)
     {
         // Vector3 x;
         //MeshFilter m = floor.GetComponent<MeshFilter>();
 
-        var dist = goal_pos - transform.position;
+        var dist = destination - transform.position;
 
-        Vector3 point = goal_pos;
+        Vector3 point = destination;
         float direct = Random.Range(0.0f, 1.0f);
         if (direct < .9)
             point = (Vector3)Random.insideUnitSphere * radius + center;
