@@ -28,7 +28,7 @@ public class RRTAlgo : MonoBehaviour
     {
         canMove = true;
         step = 20f;
-        maxSteps = 100;
+        maxSteps = 10000;
         speed = 5.0f;
         obCol = new List<Collider>();
         goal = GameObject.Find("Goal");
@@ -155,7 +155,8 @@ public class RRTAlgo : MonoBehaviour
         
         bool flag = false;
 
-        while (true)
+        //while (true)
+        for(int q = 0; q < 1000; q++)
         {
             TreeNode closest = tree.FindClosest(point, tree.root);
             var nextStep = Vector3.Lerp(closest.pos, point, step / Vector3.Distance(closest.pos, point));
@@ -177,11 +178,13 @@ public class RRTAlgo : MonoBehaviour
             else
             {
                 Debug.DrawLine(closest.pos, nextStep, Color.white, 60f);
-                TreeNode newLeaf = new TreeNode(new Vector3(nextStep.x, 0f, nextStep.z));
+                TreeNode newLeaf = new TreeNode(nextStep);
                 closest.AddChild(newLeaf);
                 return newLeaf;
             }
         }
+
+        return null;
     }
 /*
     void OnTriggerEnter(Collider col)
