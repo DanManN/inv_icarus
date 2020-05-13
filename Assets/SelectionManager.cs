@@ -8,6 +8,8 @@ public class SelectionManager : MonoBehaviour
     [SerializeField] private Material defaultMaterial;
 
     private Transform _selection;
+
+    private static List<GameObject> selected = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +19,12 @@ public class SelectionManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Deselect
         if (_selection != null)
         {
             var selectionRenderer = _selection.GetComponent<Renderer>();
+            var agentScript = _selection.GetComponent<Agent>();
             // try
             // {
             //     selectionRenderer.materials[1] = defaultMaterial;
@@ -31,16 +36,28 @@ public class SelectionManager : MonoBehaviour
                 
             //     // throw;
             // }
+            if (agentScript != null)
+            {
+                bool isSelected = agentScript.isSelected;
+                if (! isSelected)
+                {
+                    selectionRenderer.material = defaultMaterial;
+                    // if !isSeleced?
+                    _selection = null;
+                }
+            }
 
-            selectionRenderer.material = defaultMaterial;
-            _selection = null;
+            
         }
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
+        // Select
         if (Physics.Raycast(ray, out hit))
         {
             var selection = hit.transform;
             var selectionRenderer = selection.GetComponent<Renderer>();
+            var agentScript = selection.GetComponent<Agent>();
             if (selectionRenderer != null)
             {
                 // try
@@ -53,7 +70,29 @@ public class SelectionManager : MonoBehaviour
                     
                 //     // throw;
                 // }
-                selectionRenderer.material = highlightMaterial;
+                if (agentScript != null)
+                {
+                    selectionRenderer.material = highlightMaterial;
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        if (agentScript.isSelected)
+                        {
+                            // selected.Add(selection.GetComponent<GameObject>());
+                            // A bool for isSelected?
+                            agentScript.isSelected = false;
+                        }
+                        else
+                        {
+                            // REMOVE
+                            // selected.Remove(selection.GetComponent<GameObject>());
+                            // A bool for isSelected?
+                            agentScript.isSelected = true;
+                        }
+
+                    }
+                }
+
+
             }
             
             _selection = selection;

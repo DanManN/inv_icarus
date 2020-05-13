@@ -37,6 +37,8 @@ public class Agent : MonoBehaviour
     Stack<TreeNode> points;
     public float speed;
 
+    public bool isSelected = false;
+
     void Start()
     {
         path = new List<Vector3>();
