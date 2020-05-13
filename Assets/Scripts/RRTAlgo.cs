@@ -33,6 +33,7 @@ public class RRTAlgo : MonoBehaviour
         speed = 5.0f;
         obCol = new List<Collider>();
         goal = GameObject.Find("Goal");
+        goal_pos = goal.transform.position;
 
         //var ast = GameObject.FindGameObjectsWithTag("SpaceTrash");
         var obs = GameObject.FindGameObjectsWithTag("Planet");
@@ -46,18 +47,17 @@ public class RRTAlgo : MonoBehaviour
             obCol.Add(ob.GetComponent<Collider>());
         }
         
-        goal_pos = GameObject.Find("Goal").transform.position;
         GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
         Vector3 shipPos = ship.transform.position;
 
         center = (goal_pos + shipPos) * 0.5f;
         radius = Vector3.Distance(goal_pos, shipPos) * 0.75f;
 
-        FindPath();
+        //FindPath();
         
     }
 
-    void FindPath()
+    public List<Vector3> FindPath()
     {
         tree = new Tree(transform.position - offset);
         curSteps = 0;
@@ -76,21 +76,24 @@ public class RRTAlgo : MonoBehaviour
 
         if (curSteps >= maxSteps)
         {
-            finalNode = tree.FindClosest(goal.transform.position, tree.root);
+            finalNode = tree.FindClosest(goal_pos, tree.root);
             Debug.DrawLine(curLeaf.pos, finalNode.pos, Color.green, 60f);
 
         }
 
         points = new Stack<TreeNode>();
+        List<Vector3> positions = new List<Vector3>();
 
         TreeNode cur = finalNode;
         while (cur != null)
         {
             points.Push(cur);
+            positions.Add(cur.pos);
             cur = cur.parent;
         }
 
         curDest = points.Pop().pos;
+        return positions;
     }
 
     // Update is called once per frame
@@ -150,7 +153,7 @@ public class RRTAlgo : MonoBehaviour
         Vector3 x;
         //MeshFilter m = floor.GetComponent<MeshFilter>();
 
-        var dist = goal.transform.position - transform.position;
+        var dist = goal_pos - transform.position;
 
         Vector3 point = goal_pos;
         float direct = Random.Range(0.0f, 1.0f);
@@ -172,7 +175,7 @@ public class RRTAlgo : MonoBehaviour
                 if (col.bounds.Contains(nextStep))
                 {
                     flag = true;
-                    Debug.Log(col.gameObject.transform.parent.transform.parent.name);
+                    //Debug.Log(col.gameObject.transform.parent.transform.parent.name);
                     break;
                 }
 
