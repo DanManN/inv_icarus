@@ -171,6 +171,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b34ef3aee77b3c849a5515a124bfa8e8, type: 2}
+  - {fileID: 2100000, guid: 47ccc556e60c1af4ca71ee3df78fdbec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -557,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightMaterial: {fileID: 2100000, guid: b34ef3aee77b3c849a5515a124bfa8e8, type: 2}
-  defaultMaterial: {fileID: 2100000, guid: d95a85eabd31ab04f8e34af14f464c3f, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 020568ce6bb9b3245a24630d5282ca24, type: 2}
 --- !u!1 &1005544119
 GameObject:
   m_ObjectHideFlags: 0
