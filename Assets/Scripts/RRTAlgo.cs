@@ -8,7 +8,8 @@ public class RRTAlgo : MonoBehaviour
     private GameObject goal = null;
     private List<Collider> obCol;
     private Vector3 center;
-    private float radius; 
+    private float radius;
+    private Vector3 goal_pos;
 
     Tree tree;
 
@@ -45,7 +46,7 @@ public class RRTAlgo : MonoBehaviour
             obCol.Add(ob.GetComponent<Collider>());
         }
         
-        Vector3 goal_pos = GameObject.Find("Goal").transform.position;
+        goal_pos = GameObject.Find("Goal").transform.position;
         GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
         Vector3 shipPos = ship.transform.position;
 
@@ -151,7 +152,12 @@ public class RRTAlgo : MonoBehaviour
 
         var dist = goal.transform.position - transform.position;
 
-        Vector3 point = (Vector3)Random.insideUnitSphere * radius + center;
+        Vector3 point = goal_pos;
+        float direct = Random.Range(0.0f, 1.0f);
+        if (direct < .99)
+            point = (Vector3)Random.insideUnitSphere * radius + center;
+        
+        
         
         bool flag = false;
 
