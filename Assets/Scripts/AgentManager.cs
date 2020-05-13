@@ -13,7 +13,7 @@ public class AgentManager : MonoBehaviour
     private GameObject agentParent;
     public Vector3 destination;
 
-    public float UPDATE_RATE = 0.0f;
+    public static float UPDATE_RATE = 0.001f;
     private const int PATHFINDING_FRAME_SKIP = 25;
 
     public static AgentManager instance;
@@ -79,8 +79,8 @@ public class AgentManager : MonoBehaviour
 
             foreach (var agent in agents)
             {
-                agent.SetThrust();
-                agent.AdjectDirection();
+                agent.ApplyThrust();
+                agent.Steer();
             }
 
             if (UPDATE_RATE == 0)

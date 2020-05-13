@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    public float thrustForce = 2000f;
+    public float maxThrust = 5000f;
     // public float liftForce = 8f;
     // public float dragForce = 0.2f;
     public float maxTorque = 500000;
@@ -94,11 +94,25 @@ public class Agent : MonoBehaviour
         return -Vector3.Cross(disp.normalized, transform.forward).normalized;
     }
 
-    public void SetThrust()
+    public float goalThrust()
     {
+        Vector3 disp = path[0] - transform.position;
+        Vector3 zVel = Vector3.Project(rb.velocity, disp);
+        Vector3 xyVel = rb.velocity - zVel;
+        Vector3 idealForce = (2 * disp.normalized - xyVel); //* rb.mass;// / AgentManager.UPDATE_RATE;
+        float mag = Vector3.Dot(idealForce, transform.forward);
+        return mag;
     }
 
-    public void AdjectDirection()
+    public void ApplyThrust()
+    {
+        float totalThrust = 1000 * goalThrust();
+        print(totalThrust);
+        if (totalThrust > maxThrust) totalThrust = maxThrust;
+        rb.AddForce(totalThrust * transform.forward);
+    }
+
+    public void Steer()
     {
         Vector3 totalTorque = 10000 * goalTorque();
         Debug.DrawLine(transform.position, transform.position + 5 * goalTorque(), Color.yellow);
