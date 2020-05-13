@@ -353,10 +353,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710f369688703a348bc63b78a980fbac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleNum: 150
+  obstacleNum: 500
   obstaclePrefab: {fileID: 1040074329139878, guid: fa8aadfb07ca2034188c69c6f2ab4624,
     type: 3}
-  radius: 500
+  radius: 550
 --- !u!4 &438233391
 Transform:
   m_ObjectHideFlags: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27f617c0ea9733b44b50c37923d5c7d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentCount: 5
+  agentCount: 10
   agentSpawnRadius: 50
   agentPrefab: {fileID: 2996385594355832704, guid: 2be8ef4129d6044c58d679c2008d999e,
     type: 3}

@@ -28,7 +28,7 @@ public class ObstacleManager : MonoBehaviour
         Vector3 shipPos = ship.transform.position;
 
         center = (goal + shipPos) * 0.5f;
-        radius = Vector3.Distance(goal, shipPos) * 0.75f;
+        // radius = Vector3.Distance(goal, shipPos) * 0.75f;
 
         var player = GameObject.FindGameObjectsWithTag("PlayCol");
         var planets = GameObject.FindGameObjectsWithTag("Planet");

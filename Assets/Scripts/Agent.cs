@@ -154,16 +154,17 @@ public class Agent : MonoBehaviour
 
     #endregion
 
-    public Vector3 avoidTorque()
+    public Vector3 avoidObsTorque()
     {
-        foreach (GameObject agent in perceivedNeighbors)
+        Vector3 torque = Vector3.zero;
+        foreach (GameObject obs in perceivedObstacles)
         {
-            Vector3 disp = agent.transform.position - transform.position;
-            Vector3 aVel = agent.GetComponent<Rigidbody>().velocity;
+            Vector3 disp = obs.transform.position - transform.position;
+            Vector3 xyDisp = Vector3.ProjectOnPlane(disp, transform.forward);
 
-
+            torque += -Vector3.Cross(transform.forward, xyDisp / 5);
         }
-        return Vector3.zero;
+        return torque;
     }
 
     public Vector3 goalTorque()
@@ -228,7 +229,7 @@ public class Agent : MonoBehaviour
 
     public void Steer()
     {
-        Vector3 totalTorque = 10000 * goalTorque();
+        Vector3 totalTorque = 10000 * goalTorque() + 10000 * avoidObsTorque();
         Debug.DrawLine(transform.position, transform.position + 5 * goalTorque(), Color.yellow);
 
         if (totalTorque.magnitude > maxTorque) totalTorque = maxTorque * totalTorque.normalized;
@@ -335,7 +336,10 @@ public class Agent : MonoBehaviour
 
             if (flag)
             {
-                point = (Vector3)Random.insideUnitSphere * radius + center;
+                point = destination;
+                direct = Random.Range(0.0f, 1.0f);
+                if (direct < .9)
+                    point = (Vector3)Random.insideUnitSphere * radius + center;
                 //Debug.DrawLine(closest.pos, nextStep, Color.red, 60f);
             }
 
@@ -346,6 +350,13 @@ public class Agent : MonoBehaviour
                 TreeNode newLeaf = new TreeNode(nextStep);
                 closest.AddChild(newLeaf);
                 return newLeaf;
+            }
+
+            if (q == 999)
+            {
+                TreeNode newLeaf = new TreeNode(nextStep);
+                closest.AddChild(newLeaf);
+                return newLeaf; 
             }
         }
 
