@@ -49,6 +49,10 @@ public class SelectionManager : MonoBehaviour
                     // if !isSeleced?
                     _selection = null;
                 }
+                else
+                {
+                    selectionRenderer.material = selectedMaterial;
+                }
             }
 
 
@@ -76,10 +80,7 @@ public class SelectionManager : MonoBehaviour
                 // }
                 if (agentScript != null)
                 {
-                    if (!agentScript.isSelected)
-                    {
-                        selectionRenderer.material = highlightMaterial;
-                    }
+                    selectionRenderer.material = highlightMaterial;
 
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
