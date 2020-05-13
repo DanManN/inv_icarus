@@ -21,13 +21,10 @@ public class RRTAlgo : MonoBehaviour
     Stack<TreeNode> points;
     Vector3 curDest;
     public float speed;
-    Vector3 offset;
-    bool canMove;
-
+    
     // Start is called before the first frame update
     void Start()
     {
-        canMove = true;
         step = 20f;
         maxSteps = 10000;
         speed = 5.0f;
@@ -35,12 +32,7 @@ public class RRTAlgo : MonoBehaviour
         goal = GameObject.Find("Goal");
         goal_pos = goal.transform.position;
 
-        //var ast = GameObject.FindGameObjectsWithTag("SpaceTrash");
         var obs = GameObject.FindGameObjectsWithTag("Planet");
-        //var obs = planets.Concat(ast);
-
-        //offset = new Vector3(0, GetComponent<Collider>().bounds.extents.y, 0);
-        offset = new Vector3(0, 0, 0);
 
         foreach (GameObject ob in obs)
         {
@@ -59,7 +51,7 @@ public class RRTAlgo : MonoBehaviour
 
     public List<Vector3> FindPath()
     {
-        tree = new Tree(transform.position - offset);
+        tree = new Tree(transform.position);
         curSteps = 0;
         TreeNode curLeaf = null;
 
@@ -225,7 +217,7 @@ public class RRTAlgo : MonoBehaviour
 */
 }
 
-
+/*
 public class TreeNode
 {
     public Vector3 pos;
@@ -275,4 +267,5 @@ public class Tree
         return close;
     }
 }
+*/
   
