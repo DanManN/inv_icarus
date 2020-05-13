@@ -188,11 +188,11 @@
           <e p="ObstacleManager.cs" t="Include" />
           <e p="Parameters.cs" t="Include" />
           <e p="RRTAlgo.cs" t="Include" />
+          <e p="SelectionManager.cs" t="Include" />
           <e p="SlidingFrictionForceVisualizer.cs" t="Include" />
           <e p="Util.cs" t="Include" />
           <e p="WallManager.cs" t="Include" />
         </e>
-        <e p="SelectionManager.cs" t="Include" />
         <e p="StarSparrow" t="Include">
           <e p="Readme" t="Include">
             <e p="Readme Files" t="Include">
