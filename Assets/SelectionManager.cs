@@ -24,6 +24,7 @@ public class SelectionManager : MonoBehaviour
         if (_selection != null)
         {
             var selectionRenderer = _selection.GetComponent<Renderer>();
+            var agentScript = _selection.GetComponent<Agent>();
             // try
             // {
             //     selectionRenderer.materials[1] = defaultMaterial;
@@ -35,14 +36,17 @@ public class SelectionManager : MonoBehaviour
                 
             //     // throw;
             // }
-            var agentScript = _selection.GetComponent<Agent>();
-            bool isSelected = agentScript.isSelected;
-            if (! isSelected)
+            if (agentScript != null)
             {
-                selectionRenderer.material = defaultMaterial;
-                // if !isSeleced?
-                _selection = null;
+                bool isSelected = agentScript.isSelected;
+                if (! isSelected)
+                {
+                    selectionRenderer.material = defaultMaterial;
+                    // if !isSeleced?
+                    _selection = null;
+                }
             }
+
             
         }
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,6 +57,7 @@ public class SelectionManager : MonoBehaviour
         {
             var selection = hit.transform;
             var selectionRenderer = selection.GetComponent<Renderer>();
+            var agentScript = selection.GetComponent<Agent>();
             if (selectionRenderer != null)
             {
                 // try
@@ -65,26 +70,28 @@ public class SelectionManager : MonoBehaviour
                     
                 //     // throw;
                 // }
-                selectionRenderer.material = highlightMaterial;
-                var agentScript = selection.GetComponent<Agent>();
-
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (agentScript != null)
                 {
-                    if (agentScript.isSelected)
+                    selectionRenderer.material = highlightMaterial;
+                    if (Input.GetKeyDown(KeyCode.Space))
                     {
-                        // selected.Add(selection.GetComponent<GameObject>());
-                        // A bool for isSelected?
-                        agentScript.isSelected = false;
-                    }
-                    else
-                    {
-                        // REMOVE
-                        // selected.Remove(selection.GetComponent<GameObject>());
-                        // A bool for isSelected?
-                        agentScript.isSelected = true;
-                    }
+                        if (agentScript.isSelected)
+                        {
+                            // selected.Add(selection.GetComponent<GameObject>());
+                            // A bool for isSelected?
+                            agentScript.isSelected = false;
+                        }
+                        else
+                        {
+                            // REMOVE
+                            // selected.Remove(selection.GetComponent<GameObject>());
+                            // A bool for isSelected?
+                            agentScript.isSelected = true;
+                        }
 
+                    }
                 }
+
 
             }
             
