@@ -388,6 +388,27 @@ MonoBehaviour:
   agentPrefab: {fileID: 2996385594355832704, guid: 2be8ef4129d6044c58d679c2008d999e,
     type: 3}
   destination: {x: 0, y: 0, z: 0}
+--- !u!1 &585687528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2996385594355832704, guid: 2be8ef4129d6044c58d679c2008d999e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2995802349778965800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &585687529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585687528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5b08748d57c61046aec7b192425288b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  step: 0
+  maxSteps: 0
+  speed: 0
 --- !u!1 &1005544119
 GameObject:
   m_ObjectHideFlags: 0

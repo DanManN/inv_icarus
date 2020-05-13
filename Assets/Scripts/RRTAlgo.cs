@@ -33,9 +33,9 @@ public class RRTAlgo : MonoBehaviour
         obCol = new List<Collider>();
         goal = GameObject.Find("Goal");
 
-        var ast = GameObject.FindGameObjectsWithTag("SpaceTrash");
-        var planets = GameObject.FindGameObjectsWithTag("Planet");
-        var obs = planets.Concat(ast);
+        //var ast = GameObject.FindGameObjectsWithTag("SpaceTrash");
+        var obs = GameObject.FindGameObjectsWithTag("Planet");
+        //var obs = planets.Concat(ast);
 
         //offset = new Vector3(0, GetComponent<Collider>().bounds.extents.y, 0);
         offset = new Vector3(0, 0, 0);
@@ -160,11 +160,13 @@ public class RRTAlgo : MonoBehaviour
         {
             TreeNode closest = tree.FindClosest(point, tree.root);
             var nextStep = Vector3.Lerp(closest.pos, point, step / Vector3.Distance(closest.pos, point));
+            flag = false;
             
             foreach (Collider col in obCol)
                 if (col.bounds.Contains(nextStep))
                 {
                     flag = true;
+                    Debug.Log(col.gameObject.transform.parent.transform.parent.name);
                     break;
                 }
 
