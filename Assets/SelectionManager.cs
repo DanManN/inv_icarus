@@ -76,7 +76,11 @@ public class SelectionManager : MonoBehaviour
                 // }
                 if (agentScript != null)
                 {
-                    selectionRenderer.material = highlightMaterial;
+                    if (!agentScript.isSelected)
+                    {
+                        selectionRenderer.material = highlightMaterial;
+                    }
+                    
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         if (agentScript.isSelected)
