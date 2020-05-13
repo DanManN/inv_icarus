@@ -169,6 +169,7 @@
         <e p="Scripts" t="Include">
           <e p="Agent.cs" t="Include" />
           <e p="AgentManager.cs" t="Include" />
+          <e p="CameraScript.cs" t="Include" />
           <e p="Follow.cs" t="Include" />
           <e p="Manual.cs" t="Include" />
           <e p="ObstacleManager.cs" t="Include" />

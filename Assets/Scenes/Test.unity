@@ -246,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4775774438825354, guid: 79e4c0d1647edb24e82e40e6b4bcaa7b, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4775774438825354, guid: 79e4c0d1647edb24e82e40e6b4bcaa7b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4761802173677240, guid: fa8aadfb07ca2034188c69c6f2ab4624, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4761802173677240, guid: fa8aadfb07ca2034188c69c6f2ab4624, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -871,6 +871,7 @@ GameObject:
   - component: {fileID: 1959334991}
   - component: {fileID: 1959334990}
   - component: {fileID: 1959334993}
+  - component: {fileID: 1959334994}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -958,6 +959,15 @@ MonoBehaviour:
   movementSpeed: 10
   freeLookSensitivity: 3
   zoomSensitivity: 10
+--- !u!45 &1959334994
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959334989}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: b6a3f8bca2c865243929bac258c89b96, type: 2}
 --- !u!1 &2039513847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,7 +1078,7 @@ PrefabInstance:
     - target: {fileID: 2991318239847712608, guid: 2be8ef4129d6044c58d679c2008d999e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2991318239847712608, guid: 2be8ef4129d6044c58d679c2008d999e,
         type: 3}
