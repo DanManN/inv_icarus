@@ -106,7 +106,7 @@ public class Agent : MonoBehaviour
 
     public void ApplyThrust()
     {
-        float totalThrust = 1000 * goalThrust();
+        float totalThrust = 500 * goalThrust();
         print(totalThrust);
         if (totalThrust > maxThrust) totalThrust = maxThrust;
         rb.AddForce(totalThrust * transform.forward);
