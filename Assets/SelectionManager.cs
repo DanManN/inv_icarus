@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// USE SPACE TO SELECT PLANE
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Material highlightMaterial;
@@ -9,7 +11,7 @@ public class SelectionManager : MonoBehaviour
 
     private Transform _selection;
 
-    private static List<GameObject> selected = new List<GameObject>();
+    // private static List<GameObject> selected = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
