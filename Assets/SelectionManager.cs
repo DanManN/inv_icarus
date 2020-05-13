@@ -20,6 +20,18 @@ public class SelectionManager : MonoBehaviour
         if (_selection != null)
         {
             var selectionRenderer = _selection.GetComponent<Renderer>();
+            // try
+            // {
+            //     selectionRenderer.materials[1] = defaultMaterial;
+            //     _selection = null;
+            //     // Debug.Log("22");
+            // }
+            // catch (System.Exception)
+            // {
+                
+            //     // throw;
+            // }
+
             selectionRenderer.material = defaultMaterial;
             _selection = null;
         }
@@ -31,8 +43,19 @@ public class SelectionManager : MonoBehaviour
             var selectionRenderer = selection.GetComponent<Renderer>();
             if (selectionRenderer != null)
             {
+                // try
+                // {
+                //     selectionRenderer.materials[1] = highlightMaterial;
+                //     Debug.Log("33");
+                // }
+                // catch (System.Exception)
+                // {
+                    
+                //     // throw;
+                // }
                 selectionRenderer.material = highlightMaterial;
             }
+            
             _selection = selection;
         }
     }
