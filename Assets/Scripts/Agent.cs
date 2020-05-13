@@ -126,6 +126,17 @@ public class Agent : MonoBehaviour
 
     #endregion
 
+    public Vector3 avoidTorque()
+    {
+        foreach (GameObject agent in perceivedNeighbors) {
+            Vector3 disp = agent.transform.position - transform.position;
+            Vector3 aVel = agent.GetComponent<Rigidbody>().velocity;
+
+
+        }
+        return Vector3.zero;
+    }
+
     public Vector3 goalTorque()
     {
         Vector3 disp = path[0] - transform.position;
