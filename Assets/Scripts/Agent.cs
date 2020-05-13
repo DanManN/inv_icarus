@@ -52,9 +52,9 @@ public class Agent : MonoBehaviour
         // GetComponent<CapsuleCollider>().radius = perceptionAngle;
 
 
-        step = 10f;
-        maxSteps = 1000;
-        speed = 50.0f;
+        step = 5f;
+        maxSteps = 5000;
+        speed = 10.0f;
         obCol = new List<Collider>();
         goal = GameObject.Find("Goal");
         goal_pos = goal.transform.position;
@@ -81,14 +81,18 @@ public class Agent : MonoBehaviour
         if (path.Count > 0)
         {
             Vector3 disp = path[0] - transform.position;
-            if (Vector3.Dot(transform.forward, disp.normalized) > 0.4)
+            // if (disp.magnitude > 100f)
+            // {
+            //     ComputePath(goal_pos);
+            // }
+            if (Vector3.Dot(transform.forward, disp.normalized) > 0.5)
             {
-                if (path.Count > 1 && disp.magnitude < 60f)
+                if (path.Count > 1 && disp.magnitude < 50f)
                 {
                     print("test");
                     path.RemoveAt(0);
                 }
-                else if (path.Count == 1 && disp.magnitude < 60f)
+                else if (path.Count == 1 && disp.magnitude < 50f)
                 {
                     // path.RemoveAt(0);
                     print("reached goal");
@@ -164,22 +168,52 @@ public class Agent : MonoBehaviour
     {
         if (path.Count < 1)
             return Vector3.zero;
+
         Vector3 disp = path[0] - transform.position;
-        float angle = Vector3.Angle(disp, transform.forward);
-        if (Mathf.Abs(angle) < 1) return Vector3.zero;
-        return -2 * Vector3.Cross(disp.normalized, transform.forward).normalized;
+        Vector3 zVel = Vector3.Project(rb.velocity, disp);
+        Vector3 xyVel = rb.velocity - zVel;
+        Vector3 goalVel = disp / 2;
+
+        // return Vector3.Cross(transform.forward, disp.normalized).normalized;
+
+        // if (xyVel.magnitude > goalVel.magnitude / 4 && Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
+        if (1.5 * Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
+        {
+            // float angle = Vector3.Angle(rb.velocity, transform.forward);
+            // if (Mathf.Abs(angle) < 1) return Vector3.zero;
+            return Vector3.Cross(transform.forward, -xyVel).normalized;
+        }
+        else
+        {
+            // float angle = Vector3.Angle(disp, transform.forward);
+            // if (Mathf.Abs(angle) < 1) return Vector3.zero;
+            return Vector3.Cross(transform.forward, disp.normalized).normalized;
+        }
     }
 
     public float goalThrust()
     {
         if (path.Count < 1)
-            return 0.1f;
+            return -0.01f;
+
         Vector3 disp = path[0] - transform.position;
         Vector3 zVel = Vector3.Project(rb.velocity, disp);
         Vector3 xyVel = rb.velocity - zVel;
-        Vector3 idealForce = (1.5f * disp.normalized - xyVel); //* rb.mass;// / AgentManager.UPDATE_RATE;
-        float mag = Vector3.Dot(idealForce, transform.forward);
-        return mag;
+        // Vector3 idealForce = (disp.normalized - xyVel); //> rb.mass;// / AgentManager.UPDATE_RATE;
+
+        // if (xyVel.magnitude > 1.5 && Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
+        // {
+        //     // return Vector3.Dot(transform.forward, -xyVel);
+        //     idealForce = (0.1f * disp - 1f * xyVel); //> rb.mass;// / AgentManager.UPDATE_RATE;
+        // }
+        // else
+        // {
+        //     idealForce = (0.1f * disp - 0f * xyVel); //> rb.mass;// / AgentManager.UPDATE_RATE;
+        // }
+
+        Vector3 goalVel = disp / 2;
+        Vector3 idealForce = goalVel - 0.75f * zVel - xyVel;
+        return Vector3.Dot(idealForce, transform.forward);
     }
 
     public void ApplyThrust()
