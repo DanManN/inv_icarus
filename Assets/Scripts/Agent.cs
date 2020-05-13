@@ -34,7 +34,6 @@ public class Agent : MonoBehaviour
     TreeNode finalNode;
 
     Stack<TreeNode> points;
-    Vector3 curDest;
     public float speed;
 
     void Start()
@@ -47,7 +46,7 @@ public class Agent : MonoBehaviour
         // GetComponent<CapsuleCollider>().radius = perceptionAngle;
         
         
-        step = 20f;
+        step = 70f;
         maxSteps = 1000;
         speed = 5.0f;
         obCol = new List<Collider>();
@@ -114,9 +113,12 @@ public class Agent : MonoBehaviour
 
     public void ComputePath(Vector3 destination)
     {
-        path = new List<Vector3>() { destination };
+        //path = new List<Vector3>() { destination };
         // call rrt here
-        path = FindPath(destination);
+        //path = FindPath(destination);
+        //path.Add(destination);
+        path = FindPath(goal_pos);
+        path.Add(goal_pos);
     }
 
     public Vector3 GetVelocity()
@@ -234,7 +236,8 @@ public class Agent : MonoBehaviour
             cur = cur.parent;
         }
 
-        curDest = points.Pop().pos;
+        //curDest = points.Pop().pos;
+        positions.Reverse();
         return positions;
     }
     
@@ -272,13 +275,13 @@ TreeNode NextLeaf()
             if (flag)
             {
                 point = (Vector3)Random.insideUnitSphere * radius + center;
-                Debug.DrawLine(closest.pos, nextStep, Color.red, 60f);
+                //Debug.DrawLine(closest.pos, nextStep, Color.red, 60f);
             }
 
 
             else
             {
-                Debug.DrawLine(closest.pos, nextStep, Color.white, 60f);
+                //Debug.DrawLine(closest.pos, nextStep, Color.white, 60f);
                 TreeNode newLeaf = new TreeNode(nextStep);
                 closest.AddChild(newLeaf);
                 return newLeaf;

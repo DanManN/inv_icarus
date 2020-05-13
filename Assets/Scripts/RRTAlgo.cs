@@ -85,6 +85,7 @@ public class RRTAlgo : MonoBehaviour
         }
 
         curDest = points.Pop().pos;
+        positions.Reverse();
         return positions;
     }
 
