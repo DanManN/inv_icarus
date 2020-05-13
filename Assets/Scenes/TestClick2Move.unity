@@ -656,6 +656,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2074403552344794140, guid: fa8aadfb07ca2034188c69c6f2ab4624,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa8aadfb07ca2034188c69c6f2ab4624, type: 3}
 --- !u!1 &1241925596
@@ -1027,6 +1032,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Planet
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325381267037091452, guid: 3273f2a9158eafb41ac889d944ccc983,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3273f2a9158eafb41ac889d944ccc983, type: 3}
