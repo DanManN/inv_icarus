@@ -336,7 +336,10 @@ public class Agent : MonoBehaviour
 
             if (flag)
             {
-                point = (Vector3)Random.insideUnitSphere * radius + center;
+                point = destination;
+                direct = Random.Range(0.0f, 1.0f);
+                if (direct < .9)
+                    point = (Vector3)Random.insideUnitSphere * radius + center;
                 //Debug.DrawLine(closest.pos, nextStep, Color.red, 60f);
             }
 
@@ -347,6 +350,13 @@ public class Agent : MonoBehaviour
                 TreeNode newLeaf = new TreeNode(nextStep);
                 closest.AddChild(newLeaf);
                 return newLeaf;
+            }
+
+            if (q == 999)
+            {
+                TreeNode newLeaf = new TreeNode(nextStep);
+                closest.AddChild(newLeaf);
+                return newLeaf; 
             }
         }
 

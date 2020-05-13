@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
 
-	public float movementSpeed = 10f;
+	public float movementSpeed = 100f;
 	public float freeLookSensitivity = 3f;
-	public float zoomSensitivity = 10f;
+	public float zoomSensitivity = 100f;
 	/// Set to true when free looking (on right mouse button).
 	private bool looking = false;
 
