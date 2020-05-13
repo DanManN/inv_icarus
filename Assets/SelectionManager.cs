@@ -7,7 +7,9 @@ using UnityEngine;
 public class SelectionManager : MonoBehaviour
 {
     [SerializeField] private Material highlightMaterial;
+    [SerializeField] private Material selectedMaterial;
     [SerializeField] private Material defaultMaterial;
+
 
     private Transform _selection;
 
@@ -74,7 +76,11 @@ public class SelectionManager : MonoBehaviour
                 // }
                 if (agentScript != null)
                 {
-                    selectionRenderer.material = highlightMaterial;
+                    if (!agentScript.isSelected)
+                    {
+                        selectionRenderer.material = highlightMaterial;
+                    }
+                    
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         if (agentScript.isSelected)
@@ -82,6 +88,7 @@ public class SelectionManager : MonoBehaviour
                             // selected.Add(selection.GetComponent<GameObject>());
                             // A bool for isSelected?
                             agentScript.isSelected = false;
+                            selectionRenderer.material = defaultMaterial;
                         }
                         else
                         {
@@ -89,6 +96,7 @@ public class SelectionManager : MonoBehaviour
                             // selected.Remove(selection.GetComponent<GameObject>());
                             // A bool for isSelected?
                             agentScript.isSelected = true;
+                            selectionRenderer.material = selectedMaterial;
                         }
 
                     }
