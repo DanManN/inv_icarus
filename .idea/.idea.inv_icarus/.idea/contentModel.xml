@@ -171,7 +171,6 @@
           <e p="AgentManager.cs" t="Include" />
           <e p="Follow.cs" t="Include" />
           <e p="Manual.cs" t="Include" />
-          <e p="MoveCamera.cs" t="Include" />
           <e p="ObstacleManager.cs" t="Include" />
           <e p="Parameters.cs" t="Include" />
           <e p="RRTAlgo.cs" t="Include" />
