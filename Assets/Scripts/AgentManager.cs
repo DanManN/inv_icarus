@@ -109,7 +109,11 @@ public class AgentManager : MonoBehaviour
         // NavMesh.SamplePosition(destination, out hit, 10, NavMesh.AllAreas);
         foreach (var agent in agents)
         {
-            agent.ComputePath(destination);
+            if(agent.isSelected)
+            {
+                agent.ComputePath(destination);
+            }
+            
         }
     }
 

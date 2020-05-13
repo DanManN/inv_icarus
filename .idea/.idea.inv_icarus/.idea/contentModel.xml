@@ -166,6 +166,19 @@
             <e p="NavMeshSurface.cs" t="Include" />
           </e>
         </e>
+        <e p="OutlineToolkit" t="Include">
+          <e p="Shader" t="Include">
+            <e p="EdgeCombine.shader" t="Include" />
+            <e p="EdgeDetect.shader" t="Include" />
+            <e p="EncodedDepth.shader" t="Include" />
+            <e p="NamedStandard.shader" t="Include" />
+            <e p="Normals.shader" t="Include" />
+            <e p="Outline.shader" t="Include" />
+            <e p="OutlineDepthDependant.shader" t="Include" />
+            <e p="ProcessedEdges.shader" t="Include" />
+            <e p="StandardSurfaceOutlined.shader" t="Include" />
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="Agent.cs" t="Include" />
           <e p="AgentManager.cs" t="Include" />
@@ -175,6 +188,7 @@
           <e p="ObstacleManager.cs" t="Include" />
           <e p="Parameters.cs" t="Include" />
           <e p="RRTAlgo.cs" t="Include" />
+          <e p="SelectionManager.cs" t="Include" />
           <e p="SlidingFrictionForceVisualizer.cs" t="Include" />
           <e p="Util.cs" t="Include" />
           <e p="WallManager.cs" t="Include" />
