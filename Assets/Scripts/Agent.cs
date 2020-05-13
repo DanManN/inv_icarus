@@ -179,7 +179,7 @@ public class Agent : MonoBehaviour
         // return Vector3.Cross(transform.forward, disp.normalized).normalized;
 
         // if (xyVel.magnitude > goalVel.magnitude / 4 && Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
-        if (rb.velocity.magnitude > 0.5 && 1.5 * Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
+        if (rb.velocity.magnitude > 1.5 && 1.5 * Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
         {
             // float angle = Vector3.Angle(rb.velocity, transform.forward);
             // if (Mathf.Abs(angle) < 1) return Vector3.zero;
@@ -196,7 +196,7 @@ public class Agent : MonoBehaviour
     public float goalThrust()
     {
         if (path.Count < 1)
-            return -0.01f;
+            return -0.0f;
 
         Vector3 disp = path[0] - transform.position;
         Vector3 zVel = Vector3.Project(rb.velocity, disp);

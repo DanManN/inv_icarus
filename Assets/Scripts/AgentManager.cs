@@ -53,9 +53,13 @@ public class AgentManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var point = Camera.main.ScreenToWorldPoint(Input.mousePosition + Vector3.forward * 10);
-            var dir = point - Camera.main.transform.position;
+            // var dir = point - Camera.main.transform.position;
+            // RaycastHit rcHit;
+            // if (Physics.Raycast(point, dir, out rcHit))
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit rcHit;
-            if (Physics.Raycast(point, dir, out rcHit))
+
+            if (Physics.Raycast(ray, out rcHit, Mathf.Infinity, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
             {
                 point = rcHit.point;
                 SetAgentDestinations(point);
@@ -109,11 +113,11 @@ public class AgentManager : MonoBehaviour
         // NavMesh.SamplePosition(destination, out hit, 10, NavMesh.AllAreas);
         foreach (var agent in agents)
         {
-            if(agent.isSelected)
+            if (agent.isSelected)
             {
                 agent.ComputePath(destination);
             }
-            
+
         }
     }
 

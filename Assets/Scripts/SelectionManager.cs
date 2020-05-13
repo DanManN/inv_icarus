@@ -17,7 +17,7 @@ public class SelectionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -37,13 +37,13 @@ public class SelectionManager : MonoBehaviour
             // }
             // catch (System.Exception)
             // {
-                
+
             //     // throw;
             // }
             if (agentScript != null)
             {
                 bool isSelected = agentScript.isSelected;
-                if (! isSelected)
+                if (!isSelected)
                 {
                     selectionRenderer.material = defaultMaterial;
                     // if !isSeleced?
@@ -51,13 +51,13 @@ public class SelectionManager : MonoBehaviour
                 }
             }
 
-            
+
         }
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         // Select
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             var selection = hit.transform;
             var selectionRenderer = selection.GetComponent<Renderer>();
@@ -71,7 +71,7 @@ public class SelectionManager : MonoBehaviour
                 // }
                 // catch (System.Exception)
                 // {
-                    
+
                 //     // throw;
                 // }
                 if (agentScript != null)
@@ -80,7 +80,7 @@ public class SelectionManager : MonoBehaviour
                     {
                         selectionRenderer.material = highlightMaterial;
                     }
-                    
+
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
                         if (agentScript.isSelected)
@@ -104,7 +104,7 @@ public class SelectionManager : MonoBehaviour
 
 
             }
-            
+
             _selection = selection;
         }
     }
