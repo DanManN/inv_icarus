@@ -15,11 +15,12 @@ public class Agent : MonoBehaviour
 
     private List<Vector3> path;
     private Rigidbody rb;
+    // private CapsuleCollider vision;
 
     private HashSet<GameObject> perceivedNeighbors = new HashSet<GameObject>();
     private HashSet<GameObject> perceivedObstacles = new HashSet<GameObject>();
-    
-    
+
+
     private GameObject goal = null;
     private List<Collider> obCol;
     private Vector3 center;
@@ -40,15 +41,20 @@ public class Agent : MonoBehaviour
     {
         path = new List<Vector3>();
         rb = GetComponent<Rigidbody>();
+        // foreach (CapsuleCollider cc in GetComponents<CapsuleCollider>())
+        // {
+        //     if (cc.isTrigger)
+        //         vision = cc;
+        // }
 
         // gameObject.transform.localScale = new Vector3(2 * radius, 1, 2 * radius);
         // GetComponent<CapsuleCollider>().height = perceptionDistance;
         // GetComponent<CapsuleCollider>().radius = perceptionAngle;
-        
-        
-        step = 70f;
+
+
+        step = 10f;
         maxSteps = 1000;
-        speed = 5.0f;
+        speed = 50.0f;
         obCol = new List<Collider>();
         goal = GameObject.Find("Goal");
         goal_pos = goal.transform.position;
@@ -59,7 +65,7 @@ public class Agent : MonoBehaviour
         {
             obCol.Add(ob.GetComponent<Collider>());
         }
-        
+
         GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
         Vector3 shipPos = ship.transform.position;
 
@@ -67,23 +73,37 @@ public class Agent : MonoBehaviour
         radius = Vector3.Distance(goal_pos, shipPos) * 0.75f;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (path.Count > 1 && Vector3.Distance(transform.position, path[0]) < 1.1f)
+        // if (path.Count > 1)
+        //     print("vision: " + vision + ", " + vision.bounds + ", " + vision.bounds.Contains(path[0]));
+        // if (path.Count > 1 && vision.bounds.Contains(path[0]))
+        if (path.Count > 0)
         {
-            path.RemoveAt(0);
-        }
-        else if (path.Count == 1 && Vector3.Distance(transform.position, path[0]) < 2f)
-        {
-            path.RemoveAt(0);
-
-            if (path.Count == 0)
+            Vector3 disp = path[0] - transform.position;
+            if (Vector3.Dot(transform.forward, disp.normalized) > 0.4)
             {
-                gameObject.SetActive(false);
-                AgentManager.RemoveAgent(gameObject);
+                if (path.Count > 1 && disp.magnitude < 60f)
+                {
+                    print("test");
+                    path.RemoveAt(0);
+                }
+                else if (path.Count == 1 && disp.magnitude < 60f)
+                {
+                    // path.RemoveAt(0);
+                    print("reached goal");
+                    if (path.Count == 0)
+                    {
+                        // gameObject.SetActive(false);
+                        // AgentManager.RemoveAgent(gameObject);
+                    }
+                }
             }
         }
+    }
 
+    private void Update()
+    {
         #region Visualization
 
         if (true)
@@ -128,20 +148,36 @@ public class Agent : MonoBehaviour
 
     #endregion
 
+    public Vector3 avoidTorque()
+    {
+        foreach (GameObject agent in perceivedNeighbors)
+        {
+            Vector3 disp = agent.transform.position - transform.position;
+            Vector3 aVel = agent.GetComponent<Rigidbody>().velocity;
+
+
+        }
+        return Vector3.zero;
+    }
+
     public Vector3 goalTorque()
     {
+        if (path.Count < 1)
+            return Vector3.zero;
         Vector3 disp = path[0] - transform.position;
         float angle = Vector3.Angle(disp, transform.forward);
         if (Mathf.Abs(angle) < 1) return Vector3.zero;
-        return -Vector3.Cross(disp.normalized, transform.forward).normalized;
+        return -2 * Vector3.Cross(disp.normalized, transform.forward).normalized;
     }
 
     public float goalThrust()
     {
+        if (path.Count < 1)
+            return 0.1f;
         Vector3 disp = path[0] - transform.position;
         Vector3 zVel = Vector3.Project(rb.velocity, disp);
         Vector3 xyVel = rb.velocity - zVel;
-        Vector3 idealForce = (2 * disp.normalized - xyVel); //* rb.mass;// / AgentManager.UPDATE_RATE;
+        Vector3 idealForce = (1.5f * disp.normalized - xyVel); //* rb.mass;// / AgentManager.UPDATE_RATE;
         float mag = Vector3.Dot(idealForce, transform.forward);
         return mag;
     }
@@ -188,7 +224,7 @@ public class Agent : MonoBehaviour
     {
 
     }
-    
+
     public List<Vector3> FindPath(Vector3 destination)
     {
         tree = new Tree(transform.position);
@@ -229,10 +265,10 @@ public class Agent : MonoBehaviour
         positions.Reverse();
         return positions;
     }
-    
-TreeNode NextLeaf()
+
+    TreeNode NextLeaf()
     {
-        Vector3 x;
+        // Vector3 x;
         //MeshFilter m = floor.GetComponent<MeshFilter>();
 
         var dist = goal_pos - transform.position;
@@ -241,18 +277,18 @@ TreeNode NextLeaf()
         float direct = Random.Range(0.0f, 1.0f);
         if (direct < .9)
             point = (Vector3)Random.insideUnitSphere * radius + center;
-        
-        
-        
+
+
+
         bool flag = false;
 
         //while (true)
-        for(int q = 0; q < 1000; q++)
+        for (int q = 0; q < 1000; q++)
         {
             TreeNode closest = tree.FindClosest(point, tree.root);
             var nextStep = Vector3.Lerp(closest.pos, point, step / Vector3.Distance(closest.pos, point));
             flag = false;
-            
+
             foreach (Collider col in obCol)
                 if (col.bounds.Contains(nextStep))
                 {
@@ -287,7 +323,7 @@ public class TreeNode
     public Vector3 pos;
     public TreeNode parent;
     public List<TreeNode> children;
-    
+
     public TreeNode(Vector3 v)
     {
         parent = null;
@@ -315,7 +351,7 @@ public class Tree
     {
         TreeNode close = t;
         float curDist = Vector3.Distance(v, t.pos);
-        
+
         foreach (TreeNode c in t.children)
         {
             TreeNode temp = FindClosest(v, c);

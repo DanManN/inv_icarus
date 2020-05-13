@@ -58,7 +58,7 @@ public class AgentManager : MonoBehaviour
             if (Physics.Raycast(point, dir, out rcHit))
             {
                 point = rcHit.point;
-                // SetAgentDestinations(point);
+                SetAgentDestinations(point);
                 destination = point;
             }
         }
@@ -74,7 +74,7 @@ public class AgentManager : MonoBehaviour
         {
             if (iterations % PATHFINDING_FRAME_SKIP == 0)
             {
-                SetAgentDestinations(destination);
+                // SetAgentDestinations(destination);
             }
 
             foreach (var agent in agents)
