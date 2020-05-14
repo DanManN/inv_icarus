@@ -1,5 +1,7 @@
 ## Instructions
 
+Demo Link: https://drive.google.com/file/d/12UigaV75nbjZjM1uIMt0s0K21_7r-qms/view?usp=sharing
+
 In this game, you (players) are suppose to control drones to navigate to a destination in the 3D space.
 
 * Camera Control
