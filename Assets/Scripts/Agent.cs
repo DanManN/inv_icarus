@@ -61,7 +61,7 @@ public class Agent : MonoBehaviour
         goal = GameObject.Find("Goal");
         goal_pos = goal.transform.position;
 
-        var obs = GameObject.FindGameObjectsWithTag("Planet");
+        var obs = GameObject.FindGameObjectsWithTag("Obstacle");
 
         foreach (GameObject ob in obs)
         {
@@ -241,7 +241,7 @@ public class Agent : MonoBehaviour
 
     public void Steer()
     {
-        Vector3 totalTorque = 10000 * goalTorque() + 20 * avoidObsTorque() + 10 * avoidAgtTorque();
+        Vector3 totalTorque = 10000 * goalTorque() + 50 * avoidObsTorque() + 15 * avoidAgtTorque();
         Debug.DrawLine(transform.position, transform.position + 5 * goalTorque().normalized, Color.yellow);
         Debug.DrawLine(transform.position, transform.position + 5 * avoidObsTorque().normalized, Color.red);
         Debug.DrawLine(transform.position, transform.position + 5 * avoidAgtTorque().normalized, Color.blue);
