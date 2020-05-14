@@ -31,7 +31,7 @@ public class ObstacleManager : MonoBehaviour
         // radius = Vector3.Distance(goal, shipPos) * 0.75f;
 
         var player = GameObject.FindGameObjectsWithTag("PlayCol");
-        var planets = GameObject.FindGameObjectsWithTag("Planet");
+        var planets = GameObject.FindGameObjectsWithTag("SpaceTrash");
         var obs = new List<GameObject>();
         obs.AddRange(player);
         obs.AddRange(planets);
