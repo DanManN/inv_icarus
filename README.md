@@ -16,15 +16,17 @@ In this game, you (players) are suppose to control drones to navigate to a desti
 
 * If we have drones selected, left click on a planet or space trash to navigate the drones to that place. 
 * Path Planning
-  * We implemented a 3D RRT algorithm in order to plan the path of the drones.  
+  * We implemented **a 3D RRT algorithm from scratch** in order to plan the path of the drones.  
   * The path exapands randomly within the radius of the scene while avoiding obstacles
   * To speed up execution, with a 10% chance, the path will attempt to expand towards the goal destination
-* Applied torques and thrust to the drones to move them towards the desired points along the RRT path
+* **Challenge:** Unlike a capsule or a cylinder, the drone is not multidirectional. Saying we cannot make the drone move backward. The drone is flying here and there in the very beginning.  So we applied some fix on the torques and thrust.
+* **Main Idea:** Applied torques and thrust to the drones to move them towards the desired points along the RRT path
   * Three main torques are applied to steer the ships
     1. point towards the next rrt node or perpendicular to it depending on the current velocity.
     2. rotate away from obstacles if they are in the vision cone
     3. rotate away from agents if they are in the vision cone
-  * Thurst is applied in local z direction (positive or negative) with intensity depending on the angle so as to optimize momentum towards the goal and minimize momentum away from goal.
+  * Thrust is applied in local z direction (positive or negative) with intensity depending on the angle so as to optimize momentum towards the goal and minimize momentum away from goal.
+* Obstacle avoidance: We applied social force algorithm to do the obstacle avoidance.   
 
 
 
