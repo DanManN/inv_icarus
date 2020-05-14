@@ -18,6 +18,8 @@ public class AgentManager : MonoBehaviour
 
     public static AgentManager instance;
 
+    public List<Camera> cams = new List<Camera>();
+
     #region Unity Functions
 
     void Awake()
@@ -27,6 +29,7 @@ public class AgentManager : MonoBehaviour
         Random.InitState(0);
 
         agentParent = GameObject.Find("Agents");
+        cams.Add(GameObject.Find("Main Camera").GetComponent<Camera>());
         for (int i = 0; i < agentCount; i++)
         {
             var randPos = new Vector3((Random.value - 0.5f) * agentSpawnRadius, (Random.value - 0.5f) * agentSpawnRadius, (Random.value - 0.5f) * agentSpawnRadius);
@@ -36,6 +39,8 @@ public class AgentManager : MonoBehaviour
             agent.name = "Agent " + i;
             agent.transform.parent = agentParent.transform;
             var agentScript = agent.GetComponent<Agent>();
+
+            cams.Add(agent.transform.Find("FlightCam").GetComponent<Camera>());
 
             agents.Add(agentScript);
             agentsObjs.Add(agent, agentScript);
