@@ -3,7 +3,8 @@
 In this game, you (players) are suppose to control drones to do the eliminate task by controlling them to explode on space trash.
 
 * Camera Control
-  * WASD, QE and mouse scrolling
+  * Main Camera: WASD, QE and mouse scrolling. Press "M" to set main camera
+  * Following Camera: Press "C" to switch cameras.
 * Drone selection:
   * Press "Space" to select and deselect aircrafts. 
 * Navigation:

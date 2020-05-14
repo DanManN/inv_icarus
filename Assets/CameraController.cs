@@ -51,5 +51,15 @@ public class CameraController : MonoBehaviour
                  Debug.Log ("Camera with name: " + cameras [currentCameraIndex].GetComponent<Camera>().name + ", is now enabled");
              }
          }
+         // Main Camera
+         if (Input.GetKeyDown(KeyCode.M))
+         {
+             Debug.Log ("M button has been pressed. Switching to Main Camera");
+            cameras[currentCameraIndex].gameObject.SetActive(false);
+            currentCameraIndex = 0;
+            cameras[currentCameraIndex].gameObject.SetActive(true);
+            Debug.Log ("Camera with name: " + cameras [currentCameraIndex].GetComponent<Camera>().name + ", is now enabled");
+
+         }
      }
  }
