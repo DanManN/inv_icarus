@@ -914,8 +914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5a9a1acbe77b314a8e317f535280eb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightMaterial: {fileID: 2100000, guid: b34ef3aee77b3c849a5515a124bfa8e8, type: 2}
-  selectedMaterial: {fileID: 2100000, guid: d95a85eabd31ab04f8e34af14f464c3f, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 57125df2e9117bb40a32c83b6390c301, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: f4515b3c7e536f347a12e8ed4566741c, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 020568ce6bb9b3245a24630d5282ca24, type: 2}
 --- !u!4 &1925767253
 Transform:
