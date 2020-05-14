@@ -241,7 +241,7 @@ public class Agent : MonoBehaviour
 
     public void Steer()
     {
-        Vector3 totalTorque = 10000 * goalTorque() + 1000 * avoidObsTorque() + 15 * avoidAgtTorque();
+        Vector3 totalTorque = 10000 * goalTorque() + 50 * avoidObsTorque() + 15 * avoidAgtTorque();
         Debug.DrawLine(transform.position, transform.position + 5 * goalTorque().normalized, Color.yellow);
         Debug.DrawLine(transform.position, transform.position + 5 * avoidObsTorque().normalized, Color.red);
         Debug.DrawLine(transform.position, transform.position + 5 * avoidAgtTorque().normalized, Color.blue);
