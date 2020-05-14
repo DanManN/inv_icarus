@@ -24,7 +24,7 @@ public class ObstacleManager : MonoBehaviour
         Random.InitState(0);
         
         Vector3 goal = GameObject.Find("Goal").transform.position;
-        GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
+        GameObject ship = GameObject.FindGameObjectWithTag("Agent").transform.GetChild(0).gameObject;
         Vector3 shipPos = ship.transform.position;
 
         center = (goal + shipPos) * 0.5f;

@@ -1112,6 +1112,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarSparrow4
       objectReference: {fileID: 0}
+    - target: {fileID: 2996385594355832704, guid: 2be8ef4129d6044c58d679c2008d999e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2991318239847712608, guid: 2be8ef4129d6044c58d679c2008d999e,
         type: 3}
       propertyPath: m_LocalPosition.x

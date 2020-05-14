@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour
 {
-    public float maxThrust = 5000f;
+    public float maxThrust = 2500f;
     // public float liftForce = 8f;
     // public float dragForce = 0.2f;
-    public float maxTorque = 500000;
+    public float maxTorque = 100000;
 
     public float perceptionDistance;
     public float perceptionAngle;
@@ -68,7 +68,7 @@ public class Agent : MonoBehaviour
             obCol.Add(ob.GetComponent<Collider>());
         }
 
-        GameObject ship = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).gameObject;
+        GameObject ship = GameObject.FindGameObjectWithTag("Agent").transform.GetChild(0).gameObject;
         Vector3 shipPos = ship.transform.position;
 
         center = (goal_pos + shipPos) * 0.5f;
@@ -91,13 +91,13 @@ public class Agent : MonoBehaviour
             {
                 if (path.Count > 1 && disp.magnitude < 50f)
                 {
-                    print("test");
+                    // print("test");
                     path.RemoveAt(0);
                 }
                 else if (path.Count == 1 && disp.magnitude < 50f)
                 {
                     // path.RemoveAt(0);
-                    print("reached goal");
+                    // print("reached goal");
                     if (path.Count == 0)
                     {
                         // gameObject.SetActive(false);
@@ -166,6 +166,19 @@ public class Agent : MonoBehaviour
         }
         return torque;
     }
+    public Vector3 avoidAgtTorque()
+    {
+        Vector3 torque = Vector3.zero;
+        foreach (GameObject agt in perceivedNeighbors)
+        {
+            Vector3 disp = agt.transform.position - transform.position;
+            Vector3 aVel = agt.GetComponent<Rigidbody>().velocity;
+            Vector3 xyDisp = Vector3.ProjectOnPlane(disp, transform.forward);
+
+            torque += -Vector3.Cross(transform.forward, xyDisp / 5);
+        }
+        return torque;
+    }
 
     public Vector3 goalTorque()
     {
@@ -180,7 +193,7 @@ public class Agent : MonoBehaviour
         // return Vector3.Cross(transform.forward, disp.normalized).normalized;
 
         // if (xyVel.magnitude > goalVel.magnitude / 4 && Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
-        if (rb.velocity.magnitude > 1.5 && 1.5 * Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
+        if (rb.velocity.magnitude > 2.5 && 1.5 * Vector3.Dot(rb.velocity, disp.normalized) < Vector3.Cross(rb.velocity, disp.normalized).magnitude)
         {
             // float angle = Vector3.Angle(rb.velocity, transform.forward);
             // if (Mathf.Abs(angle) < 1) return Vector3.zero;
@@ -214,7 +227,7 @@ public class Agent : MonoBehaviour
         //     idealForce = (0.1f * disp - 0f * xyVel); //> rb.mass;// / AgentManager.UPDATE_RATE;
         // }
 
-        Vector3 goalVel = disp / 2;
+        Vector3 goalVel = disp / 4;
         Vector3 idealForce = goalVel - 0.75f * zVel - xyVel;
         return Vector3.Dot(idealForce, transform.forward);
     }
@@ -223,17 +236,16 @@ public class Agent : MonoBehaviour
     {
         float totalThrust = 500 * goalThrust();
         //print(totalThrust);
-        if (totalThrust > maxThrust) totalThrust = maxThrust;
-        rb.AddForce(totalThrust * transform.forward);
+        rb.AddForce(Vector3.ClampMagnitude(totalThrust * transform.forward, maxThrust));
     }
 
     public void Steer()
     {
-        Vector3 totalTorque = 10000 * goalTorque() + 10000 * avoidObsTorque();
-        Debug.DrawLine(transform.position, transform.position + 5 * goalTorque(), Color.yellow);
-
-        if (totalTorque.magnitude > maxTorque) totalTorque = maxTorque * totalTorque.normalized;
-        rb.AddTorque(totalTorque);
+        Vector3 totalTorque = 10000 * goalTorque() + 20 * avoidObsTorque() + 10 * avoidAgtTorque();
+        Debug.DrawLine(transform.position, transform.position + 5 * goalTorque().normalized, Color.yellow);
+        Debug.DrawLine(transform.position, transform.position + 5 * avoidObsTorque().normalized, Color.red);
+        Debug.DrawLine(transform.position, transform.position + 5 * avoidAgtTorque().normalized, Color.blue);
+        rb.AddTorque(Vector3.ClampMagnitude(totalTorque, maxTorque));
     }
 
     public void OnTriggerEnter(Collider other)
@@ -356,7 +368,7 @@ public class Agent : MonoBehaviour
             {
                 TreeNode newLeaf = new TreeNode(nextStep);
                 closest.AddChild(newLeaf);
-                return newLeaf; 
+                return newLeaf;
             }
         }
 
