@@ -2,6 +2,8 @@
 
 Demo Link: https://drive.google.com/file/d/1r16sIdf3OTkVps3sYQgm9DgTRCm9cVA2/view?usp=sharing
 
+Build Link: https://dreamy-lamport-5173e4.netlify.app/
+
 In this game, you (players) are suppose to control drones to navigate to a destination in the 3D space.
 
 * Camera Control
